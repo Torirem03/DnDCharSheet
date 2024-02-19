@@ -5,7 +5,7 @@
 #include <string>
 #include <cstdlib>
 #include <ctime>
-// #include <CharacterSheet.h> // assuming you have a separate header file for CharacterSheet class
+#include "CharacterSheet.h"
 
 using namespace std;
 
@@ -181,6 +181,6 @@ int main() {
 
     std::cout << std::endl;
     displaySpellbook(spellbook);
-    // printSheet(); // assuming printSheet() is a member function of CharacterSheet class
+    printSheet();
     return 0;
 }
