@@ -5,11 +5,12 @@
 #include <string>
 #include <cstdlib>
 #include <ctime>
-#include <CharacterSheet.h>
+// #include <CharacterSheet.h> // assuming you have a separate header file for CharacterSheet class
 
 using namespace std;
 
 struct Spell {
+private:
     std::string name;
     std::string classes;
     int level;
@@ -22,6 +23,33 @@ struct Spell {
     bool material;
     std::string material_cost;
     std::string description;
+
+public:
+    std::string getName() const { return name; }
+    std::string getClasses() const { return classes; }
+    int getLevel() const { return level; }
+    std::string getSchool() const { return school; }
+    std::string getCastTime() const { return cast_time; }
+    std::string getRange() const { return range; }
+    std::string getDuration() const { return duration; }
+    bool hasVerbalComponent() const { return verbal; }
+    bool hasSomaticComponent() const { return somatic; }
+    bool hasMaterialComponent() const { return material; }
+    std::string getMaterialCost() const { return material_cost; }
+    std::string getDescription() const { return description; }
+
+    void setName(const std::string& newName) { name = newName; }
+    void setClasses(const std::string& newClasses) { classes = newClasses; }
+    void setLevel(int newLevel) { level = newLevel; }
+    void setSchool(const std::string& newSchool) { school = newSchool; }
+    void setCastTime(const std::string& newCastTime) { cast_time = newCastTime; }
+    void setRange(const std::string& newRange) { range = newRange; }
+    void setDuration(const std::string& newDuration) { duration = newDuration; }
+    void setVerbalComponent(bool hasVerbal) { verbal = hasVerbal; }
+    void setSomaticComponent(bool hasSomatic) { somatic = hasSomatic; }
+    void setMaterialComponent(bool hasMaterial) { material = hasMaterial; }
+    void setMaterialCost(const std::string& newMaterialCost) { material_cost = newMaterialCost; }
+    void setDescription(const std::string& newDescription) { description = newDescription; }
 };
 
 // Function to parse CSV file and store spells in a vector
@@ -58,7 +86,21 @@ std::vector<Spell> parseCSV(const std::string& filename) {
         somatic = (somatic_str == "true");
         material = (material_str == "true");
 
-        spells.push_back({name, classes, level, school, cast_time, range, duration, verbal, somatic, material, material_cost, description});
+        Spell newSpell;
+        newSpell.setName(name);
+        newSpell.setClasses(classes);
+        newSpell.setLevel(level);
+        newSpell.setSchool(school);
+        newSpell.setCastTime(cast_time);
+        newSpell.setRange(range);
+        newSpell.setDuration(duration);
+        newSpell.setVerbalComponent(verbal);
+        newSpell.setSomaticComponent(somatic);
+        newSpell.setMaterialComponent(material);
+        newSpell.setMaterialCost(material_cost);
+        newSpell.setDescription(description);
+
+        spells.push_back(newSpell);
     }
 
     file.close();
@@ -67,7 +109,7 @@ std::vector<Spell> parseCSV(const std::string& filename) {
 
 void addToSpellbook(const std::string& spellName, std::vector<Spell>& spellbook, const std::vector<Spell>& allSpells) {
     for (const Spell& spell : allSpells) {
-        if (spell.name == spellName) {
+        if (spell.getName() == spellName) {
             spellbook.push_back(spell);
             std::cout << "Added spell '" << spellName << "' to spellbook." << std::endl;
             return;
@@ -85,10 +127,10 @@ void displaySpellbook(const std::vector<Spell>& spellbook) {
 
     std::cout << "Spellbook:" << std::endl;
     for (const Spell& spell : spellbook) {
-        std::cout << "Name: " << spell.name << std::endl;
-        std::cout << "Level: " << spell.level << std::endl;
-        std::cout << "School: " << spell.school << std::endl;
-        std::cout << "Description: " << spell.description << std::endl;
+        std::cout << "Name: " << spell.getName() << std::endl;
+        std::cout << "Level: " << spell.getLevel() << std::endl;
+        std::cout << "School: " << spell.getSchool() << std::endl;
+        std::cout << "Description: " << spell.getDescription() << std::endl;
         std::cout << "-------------------------------------" << std::endl;
     }
 }
@@ -139,6 +181,6 @@ int main() {
 
     std::cout << std::endl;
     displaySpellbook(spellbook);
-    printSheet();
+    // printSheet(); // assuming printSheet() is a member function of CharacterSheet class
     return 0;
 }
