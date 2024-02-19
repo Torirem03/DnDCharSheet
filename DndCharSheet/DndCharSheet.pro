@@ -9,7 +9,8 @@ CONFIG += c++17 cmdline
 SOURCES += \
         main.cpp \
         spell.cpp \
-        DnDClasses.cpp
+        DnDClasses.cpp \
+        HitDice.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
