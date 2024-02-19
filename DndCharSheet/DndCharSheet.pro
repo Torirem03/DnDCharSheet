@@ -8,7 +8,8 @@ CONFIG += c++17 cmdline
 
 SOURCES += \
         main.cpp \
-        spell.cpp
+        spell.cpp \
+        DnDClasses.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -17,4 +18,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     CharacterSheet.h \
-    spell.h
+    spell.h \
+    HitDice.h

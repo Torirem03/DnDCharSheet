@@ -187,3 +187,4 @@ public:
     Wizard();
     virtual ~Wizard();
 };
+#endif // DNDCLASSES.H
