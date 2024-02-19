@@ -5,6 +5,9 @@
 #include <string>
 #include <cstdlib>
 #include <ctime>
+#include <CharacterSheet.h>
+
+using namespace std;
 
 struct Spell {
     std::string name;
@@ -136,6 +139,6 @@ int main() {
 
     std::cout << std::endl;
     displaySpellbook(spellbook);
-
+    printSheet();
     return 0;
 }
