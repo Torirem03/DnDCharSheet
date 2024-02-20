@@ -1,4 +1,4 @@
-#include <HitDice.h>
+#include "HitDice.h"
 #include <cstdlib>
 #include <ctime>
 // constructor&destructor
