@@ -7,6 +7,8 @@
 #include "spell.h"
 #include "DnDClasses.h"
 #include "HitDice.h"
+#include "race.h"
+#include "inventory.h"
 
 using namespace std;
 
@@ -101,5 +103,16 @@ int main() {
     cout << "Character1 armor: " << Character1.getarmor() << endl;
 
     printSheet();
+
+    // Load race stats and select a race
+    std::string raceFilePath = "D&D 5e Approved Race Stats Chart - Sheet1.csv";
+    auto raceStats = loadRaceStats(raceFilePath);
+    Race selectedRace = selectRace(raceStats);
+    std::cout << "You have selected: " << selectedRace.getRace() << std::endl;
+
+    // Create an inventory and manage it
+    Inventory inventory;
+    inventory.manageInventory();
+
     return 0;
 }
