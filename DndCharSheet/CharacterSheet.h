@@ -1,23 +1,27 @@
 #ifndef CHARACTERSHEET_H
 #include <iostream>
+#include <iomanip>
+#include "DnDClasses.h"
+#include "race.h"
+#include "inventory.h"
 using namespace std;
 #define CHARACTERSHEET_H
 
 
-void printSheet(){
+void printSheet(DnDClasses dClass, Race dRace, Inventory dInventory,string dName, int dInitroll){
     cout << "                                            .---------------------------------. " << endl;
-    cout << "DUNGEONS & DRAGONS                         [ PLAYER NAME: ____________________ ]" << endl;
-    cout << "5E CHARACTER SHEET                         [        RACE: ____________________ ]" << endl;
+    cout << "DUNGEONS & DRAGONS                         [        NAME: " << setw(20) << dName << " ]" << endl;
+    cout << "5E CHARACTER SHEET                         [        RACE: " << setw(20) << dRace.getRace() << " ]" << endl;
     cout << "                                           [  BACKGROUND: ____________________ ]" << endl;
-    cout << "CHARACTER NAME:                            [   ALIGNMENT: ____________________ ]" << endl;
-    cout << "                                           [ CLASS: ________________ LEVEL: __ ]" << endl;
-    cout << "____________________________               [ EXPERIENCE POINTS: ______________ ]" << endl;
+    cout << "                                           [   ALIGNMENT: ____________________ ]" << endl;
+    cout << "                                           [ CLASS: " << setw(16) << dClass.getclassname()<< " LEVEL: " << setw(2) << dClass.getlevel() << " ]" << endl;
+    cout << "                                           [ EXPERIENCE POINTS: ______________ ]" << endl;
     cout << "                                           \\___________________________________/" << endl;
     cout << endl;
     cout << "/------\\                                    ___    .------------. .-----------." << endl;
     cout << "| STR: |  .--------------------------.    _/   \\_  |/          \\| |/         \\|" << endl;
     cout << "[  __  ] {   __   INSPIRATION         }  |   AC  | | INITIATIVE | |   SPEED   |" << endl;
-    cout << "[ (__) ] {   __   PROFICIENCY BONUS   }  |   __  | |    ____    | |   __ ft   |" << endl;
+    cout << "[ (__) ] {   __   PROFICIENCY BONUS   }  |   __  | |     " << setw(2) << dInitroll << "     | | " << setw(6) << dRace.getSpeed() << " ft |" << endl;
     cout << " *----*  {                            }  \\       / |\\          /| |\\         /|" << endl;
     cout << "/------\\  \\__________________________/    \\_____/   ------------   -----------" << endl;
     cout << "| DEX: |  .--------------------------.    .-----------------------------------." << endl;
@@ -26,7 +30,7 @@ void printSheet(){
     cout << " *----*  | _ DEX __ :\\/20\\/: __ WIS _ |  '-------------------------------------'" << endl;
     cout << "/------\\ { _ CON __ :/\\--/\\: __ CHA _ }  .-------------. .---------------------." << endl;
     cout << "| CON: | {           ._\\/_.           }  |/           \\| |/                   \\|" << endl;
-    cout << "[  __  ] '----------------------------'   |  HIT DICE   | |     DEATH SAVES     |" << endl;
+    cout << "[  __  ] '----------------------------'  |  HIT DICE   | |     DEATH SAVES     |" << endl;
     cout << "[ (__) ]  .--------------------------.   |     ___     | |  < - - - + - - - >  |" << endl;
     cout << " *----*  {           SKILLS           }  |\\           /| |\\ death        life /|" << endl;
     cout << "| INT: | | _ Animal Handling __ (wis) |  '-------------' '---------------------'" << endl;
