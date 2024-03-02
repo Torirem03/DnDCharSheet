@@ -23,39 +23,37 @@ protected:
 public:
     DnDClasses(); // constructor
     virtual ~DnDClasses(); // deconstructor
-
     // setters
     void setclassname(string name);
     void setlevel(int level);
     void setproficiencybonus(int bonus);
-    void setfeatures(vector<string> features);
+    void setfeatures();
     void sethitDiceType(int hitDice);
     void sethp(double hp);
     void setarmor(string armor);
     void setweapons(string weapons);
     void settools(string tools);
-    void setsavingthrows(vector<string> savignthrows);
-    void setskills(vector<string> skills);
-    void setequipment(vector<string> equipment);
+    void setsavingthrows();
+    void setskills();
+    void setequipment();
     void setspecialpath(string path);
-
-
     // getters
     string getclassname() const;
     int getlevel() const;
     int getbonus() const;
-    vector<string> getfeatures() const;
+    string getfeatures() const;
     int gethitDiceType() const;
     double gethp() const;
     string getarmor() const;
     string getweapons() const;
     string gettools() const;
-    vector<string> getsavingthrows() const;
-    vector<string> getskills() const;
-    vector<string> getequipment() const;
+    string getsavingthrows() const;
+    string getskills() const;
+    string getequipment() const;
     string getpath() const;
 };
-
+// Creates character object in main
+DnDClasses setCharClass();
 
 // 14 sub classes of DnD that inherit from DnDClasses that each have unique fields in additon to base class fields
 class Artificer : public DnDClasses {
@@ -67,14 +65,14 @@ protected:
 public:
     Artificer();
     virtual ~Artificer();
-    void setInfusions(vector<string> infusions);
-    void setInfusedItems(vector<string> infuseditems);
-    void setCantrips(vector<string> cantrips);
-    void setSpells(vector<string> spells);
-    vector<string> getInfusions() const;
-    vector<string> getInfusedItems() const;
-    vector<string> getCantrips() const;
-    vector<string> getSpells() const;
+    void setInfusions();
+    void setInfusedItems();
+    void setCantrips();
+    void setSpells();
+    string getInfusions() const;
+    string getInfusedItems() const;
+    string getCantrips() const;
+    string getSpells() const;
 
 };
 class Barbarian : public DnDClasses {
@@ -94,21 +92,25 @@ class Bard : public DnDClasses {
 protected:
     vector<string> Cantrips;
     vector<string> Spells;
-    int SpellsKnown;
 public:
     Bard();
     virtual ~Bard();
-    void setCantrips(vector<string> cantrips);
-    void setSpells(vector<string> spells);
-    void setSpellsKnown(int spellsknown);
-    vector<string> getCantrips() const;
-    vector<string> getSpells() const;
-    int getSpellsKnown() const;
+    void setCantrips();
+    void setSpells();
+    string getCantrips() const;
+    string getSpells() const;
 };
 class BloodHunter : public DnDClasses {
 protected:
-    int HemocraftDie;
-    int BloodCurses;
+    int HemocraftDieType;
+    vector<string> BloodCurses;
+public:
+    BloodHunter();
+    virtual ~BloodHunter();
+    void setHemocraftDieType(int di);
+    void setBloodCurses();
+    int getHemocraftDieType() const;
+    string getBloodCurses() const;
 };
 class Cleric : public DnDClasses {
 protected:
@@ -117,6 +119,10 @@ protected:
 public:
     Cleric();
     virtual ~Cleric();
+    void setCantrips();
+    void setSpells();
+    string getCantrips() const;
+    string getSpells() const;
 };
 class Druid : public DnDClasses {
 protected:
@@ -125,20 +131,34 @@ protected:
 public:
     Druid();
     virtual ~Druid();
+    void setCantrips();
+    void setSpells();
+    string getCantrips() const;
+    string getSpells() const;
 };
-class Fighter : DnDClasses {
+class Fighter : public DnDClasses {
+protected:
+    string FightingStyle;
 public:
     Fighter();
     virtual ~Fighter();
+    void setFightingStyle();
+    string getFightingStyle() const;
 };
-class Monk : DnDClasses {
+class Monk : public DnDClasses {
 protected:
-    int MartialArtDie;
+    int MartialArtDieType;
     int KiPoints;
     int UnarmoredMovement;
 public:
     Monk();
     virtual ~Monk();
+    void setMartialArtDieType(int di);
+    void setKiPoints(int ki);
+    void setUnarmoredMovement(int movement);
+    int getMartialArtDieType() const;
+    int getKiPoints() const;
+    int getUnarmoredMovement() const;
 };
 class Paladin : public DnDClasses {
 protected:
@@ -146,20 +166,34 @@ protected:
 public:
     Paladin();
     virtual ~Paladin();
+    void setSpells();
+    string getSpells() const;
 };
 class Ranger : public DnDClasses {
 protected:
     vector<string> Spells;
+    string FavoredEnemy;
+    string FavoredEnvironment;
 public:
     Ranger();
     virtual ~Ranger();
+    void setSpells();
+    void setFavoredEnemy(string enemy);
+    void setFavoredEnvironment(string biome);
+    string getSpells() const;
+    string getFavoredEnemy() const;
+    string getFavoredEnvironment() const;
 };
 class Rogue : public DnDClasses {
 protected:
-    int SneakAttackDie;
+    int SneakAttackDieType;
+    int SneakAttackDieAmount;
 public:
     Rogue();
     virtual ~Rogue();
+    void setSneakAttackDieAmount(int di);
+    int getSneakAttackDieType() const;
+    int getSneakAttackDieAmount() const;
 };
 class Sorcerer : public DnDClasses {
 protected:
@@ -169,6 +203,10 @@ protected:
 public:
     Sorcerer();
     virtual ~Sorcerer();
+    void setCantrips();
+    void setSpells();
+    string getCantrips() const;
+    string getSpells() const;
 };
 class Warlock : public DnDClasses {
 protected:
@@ -178,6 +216,12 @@ protected:
 public:
     Warlock();
     virtual ~Warlock();
+    void setCantrips();
+    void setSpells();
+    void setInvocations();
+    string getCantrips() const;
+    string getSpells() const;
+    string getInvocations() const;
 };
 class Wizard : public DnDClasses {
 protected:
@@ -186,4 +230,10 @@ protected:
 public:
     Wizard();
     virtual ~Wizard();
+    void setCantrips();
+    void setSpells();
+    string getCantrips() const;
+    string getSpells() const;
 };
+
+#endif // DNDCLASSES_H
