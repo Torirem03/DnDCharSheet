@@ -141,6 +141,10 @@ int main() {
     Inventory inventory;
     inventory.manageInventory();
 
-    printSheet();
+    string charName;
+    cout << "Enter a name for your character: ";
+    cin >> charName;
+
+    printSheet(CharacterClass1, selectedRace, inventory,charName, initiativeRoll);
     return 0;
 }
