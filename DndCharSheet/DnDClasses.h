@@ -1,3 +1,10 @@
+/*
+Logun V.
+lvanluong@dmacc.edu
+2/18/24
+Header file that contains declarations
+for all methods and variables for DnDClasses
+*/
 #ifndef DNDCLASSES_H
 #define DNDCLASSES_H
 #include <string>
