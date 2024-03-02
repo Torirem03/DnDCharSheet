@@ -9,6 +9,7 @@
 #include "HitDice.h"
 #include "race.h"
 #include "inventory.h"
+#include "attack.h"
 
 using namespace std;
 
@@ -92,10 +93,10 @@ int main() {
     DnDClasses CharacterClass;
     HitDice Dice;
     srand(time(0)); // random seed needed for dicerolls
-    cout << CharacterClass.getclassname() << endl; // N/A
-    for (int i =0; i < 10; i++) { // 10 numbers between 1 and 8 inclusive
-        cout << Dice.rollDice(Dice.getDiceType()) << " ";
-    }
+    //cout << CharacterClass.getclassname() << endl; // N/A
+    //for (int i =0; i < 10; i++) { // 10 numbers between 1 and 8 inclusive
+    //    cout << Dice.rollDice(Dice.getDiceType()) << " ";
+    //}
 
     // sets CharacterClass1 object to whatever dndclass user entered
     DnDClasses CharacterClass1 = setCharClass();
@@ -118,18 +119,17 @@ int main() {
     cout << "Character Equipment: " << CharacterClass1.getequipment() << endl;
     cout << "Character Special Path: " << CharacterClass1.getpath() << endl;
     // wizard object test
-    Wizard temp;
-    cout << "Wizard spells: " << temp.getSpells() << endl;
+    //Wizard temp;
+    //cout << "Wizard spells: " << temp.getSpells() << endl;
   
 
-    Artificer Character1;
-    cout << "\nCharacter1 class type: " << Character1.getclassname() << endl;
-    cout << "Character1 armor: " << Character1.getarmor() << endl;
-    Character1.setarmor("Light Armor");
-    cout << "Character1 armor: " << Character1.getarmor() << endl;
+    //Artificer Character1;
+    //cout << "\nCharacter1 class type: " << Character1.getclassname() << endl;
+    //cout << "Character1 armor: " << Character1.getarmor() << endl;
+    //Character1.setarmor("Light Armor");
+    //cout << "Character1 armor: " << Character1.getarmor() << endl;
 
 
-    printSheet();
 
     // Load race stats and select a race
     std::string raceFilePath = "D&D 5e Approved Race Stats Chart - Sheet1.csv";
@@ -141,5 +141,6 @@ int main() {
     Inventory inventory;
     inventory.manageInventory();
 
+    printSheet();
     return 0;
 }
