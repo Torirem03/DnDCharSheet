@@ -10,7 +10,10 @@ SOURCES += \
         main.cpp \
         spell.cpp \
         DnDClasses.cpp \
-        HitDice.cpp
+        HitDice.cpp \
+        race.cpp \
+        inventory.cpp \
+        Attack.cpp \
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -18,6 +21,13 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+    Attack.h \
     CharacterSheet.h \
+    Interface.h \
+    Interface.h \
+    charSheet.h \
     spell.h \
-    HitDice.h
+    HitDice.h \
+    race.h \
+    inventory.h \
+    Attack.h \
