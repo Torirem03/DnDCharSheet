@@ -89,18 +89,45 @@ int main() {
 
 
     // tests calls for objects
-    DnDClasses Class;
+    DnDClasses CharacterClass;
     HitDice Dice;
     srand(time(0)); // random seed needed for dicerolls
-    cout << Class.getclassname() << endl; // N/A
+    cout << CharacterClass.getclassname() << endl; // N/A
     for (int i =0; i < 10; i++) { // 10 numbers between 1 and 8 inclusive
         cout << Dice.rollDice(Dice.getDiceType()) << " ";
     }
+
+    // sets CharacterClass1 object to whatever dndclass user entered
+    DnDClasses CharacterClass1 = setCharClass();
+    cout << "Character class type: " << CharacterClass.getclassname() << endl;
+    cout << "Character armor: " << CharacterClass.getarmor() << endl;
+    CharacterClass.setarmor("Light Armor");
+    cout << "Character armor: " << CharacterClass.getarmor() << endl;
+    // available methods from DnDClasses CharacterClass1
+    cout << "Character Classname: " << CharacterClass1.getclassname() << endl;
+    cout << "Character Level: " << CharacterClass1.getlevel() << endl;
+    cout << "Character Proficiency Bonus: " << CharacterClass1.getbonus() << endl;
+    cout << "Character Features: " << CharacterClass1.getfeatures() << endl;
+    cout << "Character Hit Dice Type: " << CharacterClass1.gethitDiceType() << endl;
+    cout << "Character HP: " << CharacterClass1.gethp() << endl;
+    cout << "Character Armor: " << CharacterClass1.getarmor() << endl;
+    cout << "Character Weapons: " << CharacterClass1.getweapons() << endl;
+    cout << "Character Tools: " << CharacterClass1.gettools() << endl;
+    cout << "Character Saving Throws: " << CharacterClass1.getsavingthrows() << endl;
+    cout << "Character Skills: " << CharacterClass1.getskills() << endl;
+    cout << "Character Equipment: " << CharacterClass1.getequipment() << endl;
+    cout << "Character Special Path: " << CharacterClass1.getpath() << endl;
+    // wizard object test
+    Wizard temp;
+    cout << "Wizard spells: " << temp.getSpells() << endl;
+  
+
     Artificer Character1;
     cout << "\nCharacter1 class type: " << Character1.getclassname() << endl;
     cout << "Character1 armor: " << Character1.getarmor() << endl;
     Character1.setarmor("Light Armor");
     cout << "Character1 armor: " << Character1.getarmor() << endl;
+
 
     printSheet();
 
