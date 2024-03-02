@@ -244,3 +244,4 @@ public:
 };
 
 #endif // DNDCLASSES_H
+
