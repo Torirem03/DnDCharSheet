@@ -327,7 +327,7 @@ class interface{
                 cin >> tempInt;
 			}
 			//set int to new value
-			activeCharSheet.setInt(tempInt);
+            activeCharSheet.setIntelligence(tempInt);
 		//else if wis
 		} else if(otherInput == "9"){
 			//enter new wis
@@ -438,7 +438,7 @@ class interface{
                 //cin >> tempSkin;
             //}
 			//set skin to new value
-			activeCharSheet.setSkin(tempSkin);
+            activeCharSheet.setSkinColor(tempSkin);
 		//else if hair
 		} else if(otherInput == "18"){
 			//enter hair
@@ -505,7 +505,7 @@ class interface{
 		//for loop to go through every entry in vector
         for(int i = 0; i < savedCharSheets.size(); i++){
 			//output character sheet
-			savedCharSheets[i].printSheet();
+            savedCharSheets[i].printSheet();
 		}
 	}
 		
