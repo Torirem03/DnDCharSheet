@@ -15,7 +15,7 @@ SOURCES += \
         inventory.cpp \
         Attack.cpp \
         background.cpp \
-        hp.cpp
+        hp.cpp \
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

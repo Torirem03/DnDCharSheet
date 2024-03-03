@@ -8,7 +8,6 @@
 #include <vector>
 #include <fstream>
 #include <string>
-#include <ctype.h>
 #include "charSheet.h"
 using namespace std;
 
@@ -51,7 +50,7 @@ class interface{
 	
 	//methods
 	//create character sheet
-    createCharSheet(){
+    auto createCharSheet(){
 		//name character
 		cout << "enter a name for your character" << endl;
 		cin >> tempName;
@@ -181,7 +180,7 @@ class interface{
 	}
 		
 	//edit character sheet
-	editCharSheet(){
+    auto editCharSheet(){
 		//output menu to ask user what they would like to edit
 		cout << "what would you like to edit?" << endl;
 		cout << "1: character name           " << endl;
@@ -459,7 +458,7 @@ class interface{
 		
 		
 	//clear character sheet
-	clearCharSheet(){
+    auto clearCharSheet(){
 		//overwrites current character sheet with the default
         activeCharSheet = new characterSheet();
 	}
