@@ -10,6 +10,8 @@
 #include "race.h"
 #include "inventory.h"
 #include "attack.h"
+#include "background.h"
+#include "hp.h"
 
 using namespace std;
 
@@ -40,59 +42,56 @@ void displaySpellbook(const std::vector<Spell>& spellbook) {
         std::cout << "-------------------------------------" << std::endl;
     }
 }
-class Initiative {
+class Dice {
 private:
     int bonus;
+    int sides;
 public:
-    Initiative(int bonus) : bonus(bonus) {}
+    Dice(int bonus, int sides) : bonus(bonus),sides(sides) {}
 
-    int rollInitiative() {
-        // Seed the random number generator with the current time
-        std::srand(static_cast<unsigned int>(std::time(nullptr)));
-
-        int roll = (std::rand() % 20) + 1;
+    int rollDice() {
+        int roll = (std::rand() % sides) + 1;
         return roll + bonus;
     }
 };
 
+std::vector<int> rollAbilities(){
+    std::vector<int> abilityScores;
+
+    Dice d6(0,6);
+
+    for (int i=0; i < 6; ++i) {
+        int score = 0;
+        //Roll 3 dice and sum the results
+        for (int j=0; j < 3; ++j) {
+            score += d6.rollDice();
+        }
+        abilityScores.push_back(score);
+    }
+    return abilityScores;
+}
+
 int main() {
+    Background back; //character background
+    std::srand(static_cast<unsigned int>(std::time(nullptr)));
     std::vector<Spell> allSpells = Spell::parseCSV("dnd-spells.csv");
     std::vector<Spell> spellbook;
-    int bonus;
+    int bonus; 
+    string charName;
 
     if (allSpells.empty()) {
         std::cerr << "No spells found. Exiting." << std::endl;
         return 1;
     }
-    std::cout << "Enter your initiative bonus: ";
-    std::cin >> bonus;
 
-    Initiative initiative(bonus);
-
-    int initiativeRoll= initiative.rollInitiative();
-    std::cout << "Your initiative roll is: " << initiativeRoll << std::endl;
-    std::cin.ignore(); // ignores the \n character
-
-    while (true) {
-        std::string spellName;
-        std::cout << "Enter the name of a spell to add to your spellbook (or type 'quit' to exit): ";
-        std::getline(std::cin, spellName);
-
-        if (spellName == "quit") {
-            break;
-        }
-
-        addToSpellbook(spellName, spellbook, allSpells);
-    }
-
-    std::cout << std::endl;
-    displaySpellbook(spellbook);
-
+    cout << "Enter a name for your character: ";
+    cin >> charName;
+    cin.ignore();
 
     // tests calls for objects
     DnDClasses CharacterClass;
     HitDice Dice;
-    srand(time(0)); // random seed needed for dicerolls
+    //srand(time(0)); // random seed needed for dicerolls
     //cout << CharacterClass.getclassname() << endl; // N/A
     //for (int i =0; i < 10; i++) { // 10 numbers between 1 and 8 inclusive
     //    cout << Dice.rollDice(Dice.getDiceType()) << " ";
@@ -121,7 +120,12 @@ int main() {
     // wizard object test
     //Wizard temp;
     //cout << "Wizard spells: " << temp.getSpells() << endl;
-  
+
+
+    cout << "What is your character's history?" << endl;
+    string history;
+    std::cin >> history;
+    back.setHistory(history);
 
     //Artificer Character1;
     //cout << "\nCharacter1 class type: " << Character1.getclassname() << endl;
@@ -129,21 +133,54 @@ int main() {
     //Character1.setarmor("Light Armor");
     //cout << "Character1 armor: " << Character1.getarmor() << endl;
 
-
-
     // Load race stats and select a race
     std::string raceFilePath = "D&D 5e Approved Race Stats Chart - Sheet1.csv";
     auto raceStats = loadRaceStats(raceFilePath);
     Race selectedRace = selectRace(raceStats);
     std::cout << "You have selected: " << selectedRace.getRace() << std::endl;
 
+    std::cout << "Enter your initiative bonus: ";
+    std::cin >> bonus;
+
+    class Dice initiative(bonus, 20);
+    std::vector<int> abilityScores = rollAbilities();
+    int Strength = abilityScores[0];
+    int Dexterity = abilityScores[1];
+    int Constitution = abilityScores[2];
+    int Intelligence = abilityScores[3];
+    int Wisdom = abilityScores[4];
+    int Charisma = abilityScores[5];
+
+    int initiativeRoll= initiative.rollDice();
+
+    std::cout << "\nStrength: " << Strength;
+    std::cout << "\nDexterity: " << Dexterity;
+    std::cout << "\nConstitution: " << Constitution;
+    std::cout << "\nIntelligence: " << Intelligence;
+    std::cout << "\nWisdom: " << Wisdom;
+    std::cout << "\nCharisma: " << Charisma << endl;
+
+    std::cout << "Your initiative roll is: " << initiativeRoll << std::endl;
+    std::cin.ignore();
+
+    while (true) {
+        std::string spellName;
+        std::cout << "Enter the name of a spell to add to your spellbook (or type 'quit' to exit): ";
+        std::getline(std::cin, spellName);
+
+        if (spellName == "quit") {
+            break;
+        }
+
+        addToSpellbook(spellName, spellbook, allSpells);
+    }
+
+    std::cout << std::endl;
+    displaySpellbook(spellbook);
+
     // Create an inventory and manage it
     Inventory inventory;
     inventory.manageInventory();
-
-    string charName;
-    cout << "Enter a name for your character: ";
-    cin >> charName;
 
     printSheet(CharacterClass1, selectedRace, inventory,charName, initiativeRoll);
     return 0;

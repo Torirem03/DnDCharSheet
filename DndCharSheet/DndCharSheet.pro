@@ -14,6 +14,8 @@ SOURCES += \
         race.cpp \
         inventory.cpp \
         Attack.cpp \
+        background.cpp \
+        hp.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -31,6 +33,8 @@ HEADERS += \
     race.h \
     inventory.h \
     Attack.h \
+    background.h \
+    hp.h
 
 
 

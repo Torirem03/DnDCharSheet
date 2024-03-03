@@ -5,8 +5,6 @@
 
 void Race::display() const {
     std::cout << "Race: " << race << "\nSize: " << size << "\nSpeed: " << speed
-              << "\nSTR: " << str << "\nDEX: " << dex << "\nCON: " << con
-              << "\nINT: " << intell << "\nWIS: " << wis << "\nCHA: " << cha
               << "\nLanguages: " << languages << "\nExtra: " << extra << std::endl << std::endl;
 }
 
