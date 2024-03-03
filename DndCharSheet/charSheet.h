@@ -1,5 +1,5 @@
-#ifndef CHARACTERSHEET_H
-#define CHARACTERSHEET_H
+#ifndef CHARSHEET_H
+#define CHARSHEET_H
 
 #include <string>
 

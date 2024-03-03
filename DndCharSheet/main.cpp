@@ -124,8 +124,11 @@ int main() {
 
     cout << "What is your character's history?" << endl;
     string history;
-    std::cin >> history;
+    cin.ignore();
+    getline(cin,history);
     back.setHistory(history);
+    cin.clear();
+
 
     //Artificer Character1;
     //cout << "\nCharacter1 class type: " << Character1.getclassname() << endl;
