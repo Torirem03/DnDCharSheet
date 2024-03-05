@@ -3,53 +3,68 @@
 #include <iomanip>
 #include "DnDClasses.h"
 #include "race.h"
+#include "background.h"
 #include "inventory.h"
 using namespace std;
 #define CHARACTERSHEET_H
 
+string profCheck(string modifier){
+    string result = (stoi(modifier) > 0) ? "X" : "_";
+    return result;
+}
 
-void printSheet(DnDClasses dClass, Race dRace, Inventory dInventory,string dName, int dInitroll){
+int savingThrowCalc(string modifier, int bonus){
+    if (profCheck(modifier) == "X") {
+        int total = bonus + stoi(modifier);
+        return total;
+    }
+    else{
+        return stoi(modifier);
+    }
+}
+
+void printSheet(DnDClasses dClass, Race dRace, Inventory dInventory,string dName, int dInitroll, int Strength, int Dexterity, int Constitution, int Intelligence, int Wisdom, int Charisma, Background dBack){
     cout << "                                            .---------------------------------. " << endl;
     cout << "DUNGEONS & DRAGONS                         [        NAME: " << setw(20) << dName << " ]" << endl;
     cout << "5E CHARACTER SHEET                         [        RACE: " << setw(20) << dRace.getRace() << " ]" << endl;
-    cout << "                                           [  BACKGROUND: ____________________ ]" << endl;
+    cout << "                                           [  BACKGROUND: " << setw(20) << dBack.getHistory() << " ]" << endl;
     cout << "                                           [   ALIGNMENT: ____________________ ]" << endl;
     cout << "                                           [ CLASS: " << setw(16) << dClass.getclassname()<< " LEVEL: " << setw(2) << dClass.getlevel() << " ]" << endl;
-    cout << "                                           [ EXPERIENCE POINTS: ______________ ]" << endl;
+    cout << "                                           [ EXPERIENCE POINTS:              0 ]" << endl;
     cout << "                                           \\___________________________________/" << endl;
     cout << endl;
     cout << "/------\\                                    ___    .------------. .-----------." << endl;
     cout << "| STR: |  .--------------------------.    _/   \\_  |/          \\| |/         \\|" << endl;
-    cout << "[  __  ] {   __   INSPIRATION         }  |   AC  | | INITIATIVE | |   SPEED   |" << endl;
-    cout << "[ (__) ] {   __   PROFICIENCY BONUS   }  |   __  | |     " << setw(2) << dInitroll << "     | | " << setw(6) << dRace.getSpeed() << " ft |" << endl;
+    cout << "[  " << setw(2) << Strength << "  ] {   __   INSPIRATION         }  |   AC  | | INITIATIVE | |   SPEED   |" << endl;
+    cout << "[ (" << setw(2) << dRace.getStr() << ") ] {   "<< setw(2) << dClass.getbonus() << "   PROFICIENCY BONUS   }  |   " << setw(2) << to_string(10 + stoi(dRace.getDex())) <<"  | |     " << setw(2) << dInitroll << "     | | " << setw(6) << dRace.getSpeed() << " ft |" << endl;
     cout << " *----*  {                            }  \\       / |\\          /| |\\         /|" << endl;
     cout << "/------\\  \\__________________________/    \\_____/   ------------   -----------" << endl;
     cout << "| DEX: |  .--------------------------.    .-----------------------------------." << endl;
-    cout << "[  __  ] {       SAVING  THROWS       }  { HIT POINTS:  [**********]  __ / __  }" << endl;
-    cout << "[ (__) ] { _ STR __  .:/\\:.  __ INT _ }  { TEMP HIT POINTS:                    }" << endl;
-    cout << " *----*  | _ DEX __ :\\/20\\/: __ WIS _ |  '-------------------------------------'" << endl;
-    cout << "/------\\ { _ CON __ :/\\--/\\: __ CHA _ }  .-------------. .---------------------." << endl;
+    cout << "[  " << setw(2) << Dexterity << "  ] {       SAVING  THROWS       }  { HIT POINTS:                " << setw(2) << dClass.gethp() <<" / " << setw(2) << dClass.gethp() << "  }" << endl;
+    cout << "[ (" << setw(2) << dRace.getDex() << ") ] { " << profCheck(dRace.getStr()) << " STR " << setw(2) << savingThrowCalc(dRace.getStr(), dClass.getbonus()) << "  .:/\\:.  " << setw(2) <<savingThrowCalc(dRace.getIntell(), dClass.getbonus()) << " INT " << profCheck(dRace.getIntell()) << " }  { TEMP HIT POINTS:                    }" << endl;
+    cout << " *----*  | " << profCheck(dRace.getDex()) << " DEX " << setw(2) << savingThrowCalc(dRace.getDex(), dClass.getbonus()) << " :\\/20\\/: " << setw(2) << savingThrowCalc(dRace.getWis(), dClass.getbonus()) << " WIS " << profCheck(dRace.getWis()) << " |  '-------------------------------------'" << endl;
+    cout << "/------\\ { " << profCheck(dRace.getCon()) << " CON " << setw(2) << savingThrowCalc(dRace.getCon(), dClass.getbonus()) << " :/\\--/\\: " << setw(2) << savingThrowCalc(dRace.getCha(), dClass.getbonus()) << " CHA " << profCheck(dRace.getCha()) << " }  .-------------. .---------------------." << endl;
     cout << "| CON: | {           ._\\/_.           }  |/           \\| |/                   \\|" << endl;
-    cout << "[  __  ] '----------------------------'  |  HIT DICE   | |     DEATH SAVES     |" << endl;
-    cout << "[ (__) ]  .--------------------------.   |     ___     | |  < - - - + - - - >  |" << endl;
+    cout << "[  " << setw(2) << Constitution << "  ] '----------------------------'  |  HIT DICE   | |     DEATH SAVES     |" << endl;
+    cout << "[ (" << setw(2) << dRace.getCon() << ") ]  .--------------------------.   |     " << dClass.getlevel() << "d" << dClass.gethitDiceType() <<"     | |  < - - - + - - - >  |" << endl;
     cout << " *----*  {           SKILLS           }  |\\           /| |\\ death        life /|" << endl;
-    cout << "| INT: | | _ Animal Handling __ (wis) |  '-------------' '---------------------'" << endl;
-    cout << "[  __  ] | _ Arcana          __ (int) |   .-----------------------------------." << endl;
-    cout << "[ (__) ] | _ Athletics       __ (str) |  {       ATTACKS & SPELLCASTING        }" << endl;
-    cout << " *----*  | _ Deception       __ (cha) |  | ___________________________________ |" << endl;
-    cout << "/------\\ | _ History         __ (int) |  | ___________________________________ |" << endl;
-    cout << "| WIS: | | _ Insight         __ (wis) |  | ___________________________________ |" << endl;
-    cout << "[  __  ] | _ Intimidation    __ (cha) |  | ___________________________________ |" << endl;
-    cout << "[ (__) ] | _ Investigation   __ (int) |  | ___________________________________ |" << endl;
-    cout << " *----*  | _ Medicine        __ (wis) |  | ___________________________________ |" << endl;
-    cout << "| CHA: | | _ Perception      __ (wis) |  | ___________________________________ |" << endl;
-    cout << "[  __  ] | _ Performance     __ (cha) |  | ___________________________________ |" << endl;
-    cout << "[ (__) ] | _ Persuasion      __ (cha) |  | ___________________________________ |" << endl;
-    cout << " *----*  | _ Religion        __ (int) |  | ___________________________________ |" << endl;
-    cout << "/------\\ | _ Sleight of Hand __ (dex) |  | ___________________________________ |" << endl;
-    cout << "| PAS. | | _ Stealth         __ (dex) |  | ___________________________________ |" << endl;
-    cout << "| WIS: | | _ Survival        __ (wis) |  | ___________________________________ |" << endl;
-    cout << "[  __  ] {                            }  '-------------------------------------'" << endl;
+    cout << "| INT: | | " << profCheck(dRace.getWis()) << " Animal Handling " << setw(2) << stoi(dRace.getWis()) + dClass.getbonus() << " (wis) |  '-------------' '---------------------'" << endl;
+    cout << "[  " << setw(2) << Intelligence << "  ] | " << profCheck(dRace.getIntell()) << " Arcana          " << setw(2) << stoi(dRace.getIntell()) + dClass.getbonus() << " (int) |   .-----------------------------------." << endl;
+    cout << "[ (" << setw(2) << dRace.getIntell() << ") ] | " << profCheck(dRace.getStr()) << " Athletics       " << setw(2) << stoi(dRace.getStr()) + dClass.getbonus() << " (str) |  {       ATTACKS & SPELLCASTING        }" << endl;
+    cout << " *----*  | " << profCheck(dRace.getCha()) << " Deception       " << setw(2) << stoi(dRace.getCha()) + dClass.getbonus() << " (cha) |  | ___________________________________ |" << endl;
+    cout << "/------\\ | " << profCheck(dRace.getIntell()) << " History         " << setw(2) << stoi(dRace.getIntell()) + dClass.getbonus() << " (int) |  | ___________________________________ |" << endl;
+    cout << "| WIS: | | " << profCheck(dRace.getWis()) << " Insight         " << setw(2) << stoi(dRace.getWis()) + dClass.getbonus() << " (wis) |  | ___________________________________ |" << endl;
+    cout << "[  " << setw(2) << Wisdom << "  ] | " << profCheck(dRace.getCha()) << " Intimidation    " << setw(2) << stoi(dRace.getCha()) + dClass.getbonus() << " (cha) |  | ___________________________________ |" << endl;
+    cout << "[ (" << setw(2) << dRace.getWis() << ") ] | " << profCheck(dRace.getIntell()) << " Investigation   " << setw(2) << stoi(dRace.getIntell()) + dClass.getbonus() << " (int) |  | ___________________________________ |" << endl;
+    cout << " *----*  | " << profCheck(dRace.getWis()) << " Medicine        " << setw(2) << stoi(dRace.getWis()) + dClass.getbonus() << " (wis) |  | ___________________________________ |" << endl;
+    cout << "| CHA: | | " << profCheck(dRace.getWis()) << " Perception      " << setw(2) << stoi(dRace.getWis()) + dClass.getbonus() << " (wis) |  | ___________________________________ |" << endl;
+    cout << "[  " << setw(2) << Charisma << "  ] | " << profCheck(dRace.getCha()) << " Performance     " << setw(2) << stoi(dRace.getCha()) + dClass.getbonus() << " (cha) |  | ___________________________________ |" << endl;
+    cout << "[ (" << setw(2) << dRace.getCha() << ") ] | " << profCheck(dRace.getCha()) << " Persuasion      " << setw(2) << stoi(dRace.getCha()) + dClass.getbonus() << " (cha) |  | ___________________________________ |" << endl;
+    cout << " *----*  | " << profCheck(dRace.getIntell()) << " Religion        " << setw(2) << stoi(dRace.getIntell()) + dClass.getbonus() << " (int) |  | ___________________________________ |" << endl;
+    cout << "/------\\ | " << profCheck(dRace.getDex()) << " Sleight of Hand " << setw(2) << stoi(dRace.getDex()) + dClass.getbonus() << " (dex) |  | ___________________________________ |" << endl;
+    cout << "| PAS. | | " << profCheck(dRace.getDex()) << " Stealth         " << setw(2) << stoi(dRace.getDex()) + dClass.getbonus() << " (dex) |  | ___________________________________ |" << endl;
+    cout << "| WIS: | | " << profCheck(dRace.getWis()) << " Survival        " << setw(2) << stoi(dRace.getWis()) + dClass.getbonus() << " (wis) |  | ___________________________________ |" << endl;
+    cout << "[  " << setw(2) << stoi(dRace.getWis()) + 10 << "  ] {                            }  '-------------------------------------'" << endl;
     cout << " *----*  '----------------------------'  /------._______________________,------\\" << endl;
     cout << "+-------------------------------------+  [              APPEARANCE             ]" << endl;
     cout << "|   OTHER PROFICIENCIES & LANGUAGES   |  [    AGE: ___________________________ ]" << endl;

@@ -122,7 +122,7 @@ int main() {
     //cout << "Wizard spells: " << temp.getSpells() << endl;
 
 
-    cout << "What is your character's history?" << endl;
+    cout << "What is your character's history? (Acolyte, Noble, Hermit, etc.)" << endl;
     string history;
     cin.ignore();
     getline(cin,history);
@@ -142,8 +142,7 @@ int main() {
     Race selectedRace = selectRace(raceStats);
     std::cout << "You have selected: " << selectedRace.getRace() << std::endl;
 
-    std::cout << "Enter your initiative bonus: ";
-    std::cin >> bonus;
+    bonus = stoi(selectedRace.getDex());
 
     class Dice initiative(bonus, 20);
     std::vector<int> abilityScores = rollAbilities();
@@ -185,6 +184,7 @@ int main() {
     Inventory inventory;
     inventory.manageInventory();
 
-    printSheet(CharacterClass1, selectedRace, inventory,charName, initiativeRoll);
+
+    printSheet(CharacterClass1, selectedRace, inventory,charName, initiativeRoll, Strength, Dexterity, Constitution, Intelligence, Wisdom, Charisma, back);
     return 0;
 }
